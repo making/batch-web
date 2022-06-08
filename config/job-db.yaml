@@ -1,0 +1,30 @@
+apiVersion: sql.tanzu.vmware.com/v1
+kind: Postgres
+metadata:
+  name: job-db
+spec:
+  storageClassName: k8s-storage
+  storageSize: 1Gi
+  cpu: "0.25"
+  memory: 256Mi
+  imagePullSecret:
+    name: tap-registry
+  monitorStorageClassName: k8s-storage
+  monitorStorageSize: 1Gi
+  resources:
+    monitor:
+      limits:
+        cpu: 256m
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 128Mi
+  pgConfig:
+    username: pgadmin
+    appUser: demo
+    dbname: demo
+  postgresVersion:
+    name: postgres-14
+  serviceType: ClusterIP
+  highAvailability:
+    enabled: false
